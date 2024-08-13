@@ -1,0 +1,130 @@
+{% extends "base_script_4.html" %}
+{% block content %}
+        <main>
+            <div class="container d-flex justify-content-evenly">
+                <div class="col-5" style="background-color: white; padding: 1em; border-radius: 1.2em">
+                    <h2>Registro para empresas:</h2>
+                    <form action="/register/company" method="POST" enctype="multipart/form-data">
+                        {% with messages = get_flashed_messages(category_filter=['register_company']) %}
+                            {% if messages %}
+                                <div class="alert alert-danger">
+                                    {% for message in messages %}
+                                        <p>{{message}}</p>
+                                    {% endfor %}
+                                    </div>
+                            {% endif %}
+                        {% endwith %}
+                        <div>
+                            <label for="">Imagen:</label>
+                            <input type="file" name="image" class="form-control" accept="image/*">
+                        </div>
+                        <div>
+                            <label>Nombre:</label>
+                            <input type="text" name="name" class="form-control" >
+                        </div>
+                        <div>
+                            <label>CUIT/Matrícula:</label>
+                            <input type="text" name="cuit" class="form-control">
+                        </div>
+                        <div>
+                            <label>Dirección:</label>
+                            <!--Ariel Avila - 29-04-2024 MB01: Se cambia el input de las direcciones para mapbox -->
+                            <!--<input type="text" name="adress" class="form-control">-->
+                            <div id="map" style="height: 400px; width: 100%;"></div>
+                            <div id="geocoder-container"></div>
+                            <input type="hidden" id="adress" name="adress">
+                        </div>
+                        <div>
+                            <label>Descripción:</label> <br>
+                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                        <div>
+                            <label>Teléfono:</label>
+                            <input type="text" name="phone" class="form-control">
+                        </div>
+                        <div>
+                            <label>Categoría:</label>
+                            <select name="category_id" class="form-select">
+                                <option value="1">Ferretería</option>
+                                <option value="2">Heladerías</option>
+                                <option value="3">Indumentaria</option>
+                                <option value="4">Minimercados</option>
+                                <option value="5">Zapaterías</option>
+                                <option value="6">Abogados</option>
+                                <option value="7">Gasistas</option>
+                                <option value="8">Mecánicos</option>
+                                <option value="9">Médicos</option>
+                                <option value="10">Psicólogos</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Barrio:</label>
+                            <select name="neighborhood" class="form-select">
+                                <option value="Centro">Centro</option>
+                                <option value="Este">Este</option>
+                                <option value="Norte">Norte</option>
+                                <option value="Oeste">Oeste</option>
+                                <option value="Sur">Sur</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Email:</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+                        <div>
+                            <label>Contraseña:</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                        <div>
+                            <label>Confirmar contraseña:</label>
+                            <input type="password" name="confirm" class="form-control">
+                        </div>
+                        <p style="color:rgb(168, 52, 52)">Todos los campos son obligatorios.</p>
+                        <input type="submit" value="Registrar empresa" class="btn mt-2" style="background-color: #ffde59;">
+                    </form>
+                </div>
+                <div class="col-5" style="background-color: white; padding: 1em; border-radius: 1.2em">
+                    <h2>Registro para personas:</h2>
+                    <form action="/register/user" method="POST">
+                        {% with messages = get_flashed_messages(category_filter=['register']) %}
+                            {% if messages %}
+                                <div class="alert alert-danger">
+                                    {% for message in messages %}
+                                        <p>{{message}}</p>
+                                    {% endfor %}
+                                    </div>
+                            {% endif %}
+                        {% endwith %}
+                        <div>
+                            <label>Nombre:</label>
+                            <input type="text" name="first_name" class="form-control">
+                        </div>
+                        <div>
+                            <label>Apellido:</label>
+                            <input type="text" name="last_name" class="form-control">
+                        </div>
+                        <div>
+                            <label>Email:</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+                        <div>
+                            <label>Contraseña:</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                        <div>
+                            <label>Confirmar contraseña:</label>
+                            <input type="password" name="confirm_u" class="form-control">
+                        </div>
+                        <p style="color:rgb(168, 52, 52)">Todos los campos son obligatorios.</p>
+                        <div>
+                            <input type="submit" value="Registrar usuario" class="btn mt-2" style="background-color: #ffde59;">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!--Ariel Avila - 29-04-2024 MB01: Se añade el script de js para el despliegue del mapa -->
+    <script src="{{ url_for('static', filename='js/script-register.js') }}"></script>
+{% endblock %} 

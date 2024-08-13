@@ -1,0 +1,39 @@
+{% extends "base_script_4.html" %}
+{% block content %}
+        <main>
+            <div class="container">
+                <div class="col-5 p-3 justify-items-center" style="background-color: white; color:#343333; border-radius: 1em">
+                        <h2>Editar producto:</h2>
+                        <form action="/edit_product" method="POST"  enctype="multipart/form-data">
+                            {% with messages = get_flashed_messages(category_filter=['product']) %}
+                                {% if messages %}
+                                    <div class="alert alert-danger">
+                                        {% for message in messages %}
+                                            <p>{{message}}</p>
+                                        {% endfor %}
+                                        </div>
+                                {% endif %}
+                            {% endwith %}
+                            <div>
+                                <img src="{{url_for('static', filename='img/'+product.image)}}" class="card-img-top object-fit-cover" style="height: 10em;" alt="{{product.name}}">
+                            </div>
+                            <div>
+                                <label>Nombre:</label>
+                                <input type="text" name="name" class="form-control" value="{{product.name}}" id="name">
+                            </div>
+                            <div>
+                                <label>Descripción:</label>
+                                <textarea name="description" class="form-control" id="description">{{product.description}}</textarea>
+                            </div>
+                            <div>
+                                <input type="hidden" name="id" value="{{product.id}}">
+                                <input type="submit" value="Editar" class="btn mt-2" style="background-color: #ffde59;">
+                                <a href="/dashboard/company" class="btn mt-2" style="background-color: #ffde59;">Cancelar</a>
+
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %} 

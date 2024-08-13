@@ -1,0 +1,140 @@
+{% extends "base_company.html" %}
+{% block content %}
+        <main>
+            <div class="container w-100">
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div class="div-desc1">
+                        <div class="photo">
+                            <img src="{{url_for('static', filename='img/'+company.image)}}" alt="Imagen de perfil"
+                                class="object-fit-cover" style="width: 13em; height: 13em; border-radius: 50%;">
+                        </div>
+                        <div>
+                            <h4 class="mt-2" style="color: white;">{{company.name}}</h4>
+
+                            <p style="color: white; font-size: 1em">{{company.description}} <br>
+                                {{company.email}} <br>
+                                {{company.phone}} <br>
+                                Barrio {{company.neighborhood}}<br></p>
+
+                            {% for points in points %}
+                            {% if points.points == None %}
+                            <i class="bi bi-star-fill me-3" style="color: #ffde59; font-size: 1.5em"><span class="ms-2"
+                                    style="color: white; ">0</span></i>
+                            <p style="font-size: 1.2em; color:white">Sé la primera persona en puntuar</p>
+                            
+                            {% else %}
+                            <i class="bi bi-star-fill me-3" style="color: #ffde59; font-size: 1.5em"><span class="ms-2"
+                                    style="color: white; ">{{points.points}}</span></i>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <hr style="color:#ffde59;">
+                        <br>
+                    </div>
+                    <!--Ariel Avila - 29-04-2024 MB01: Se añade el mapa en el perfil de las empresas -->
+                    <div class="mt-3">
+                        <div class="div-map">
+                            <input type="hidden" name="adress_lat" id="adress_lat" value="{{company.adress_lat}}">
+                            <input type="hidden" name="adress_long" id="adress_long" value="{{company.adress_long}}">
+                            <div>
+                                <label style="color: white">Encuentranos en:</label>
+                            </div>
+                            <div>
+                                <span class="me-3" style="color: white">{{company.adress}}</span><br>
+                            </div>
+                            <div id="map" style="height: 400px; width: 100%; border-radius: 5px; margin-top: 20px;"></div>
+                        </div>
+                    </div>
+                </div>
+                {% if session['user_id'] %}
+                <h4 style="color: white;">Dejá tu puntaje:</h4>
+                <form action="/score" , method="post">
+                    <div>
+                        <input type="hidden" name="user_id" value="{{session['user_id']}}">
+                        <input type="hidden" name="company_id" value="{{company.id}}">
+                        <button type="submit" class="btn" name="points" value="1">
+                            <i class="bi bi-star-fill" style="font-size: 2em; color: white" id="star"
+                                onmouseover="yellow(this)" , onmouseout="white(this)"></i>
+                        </button>
+                        <button type="submit" class="btn" name="points" value="2">
+                            <i class="bi bi-star-fill" style="font-size: 2em; color: white" id="star"
+                                onmouseover="yellow(this)" , onmouseout="white(this)"></i>
+                        </button>
+                        <button type="submit" class="btn" name="points" value="3">
+                            <i class="bi bi-star-fill" style="font-size: 2em; color: white" id="star"
+                                onmouseover="yellow(this)" , onmouseout="white(this)"></i>
+                        </button>
+                        <button type="submit" class="btn" name="points" value="4">
+                            <i class="bi bi-star-fill" style="font-size: 2em; color: white" id="star"
+                                onmouseover="yellow(this)" , onmouseout="white(this)"></i>
+                        </button>
+                        <button type="submit" class="btn" name="points" value="5">
+                            <i class="bi bi-star-fill" style="font-size: 2em; color: white" id="star"
+                                onmouseover="yellow(this)" , onmouseout="white(this)"></i>
+                        </button>
+                    </div>
+                </form>
+                {% else %}
+                <p class="col-5 m-1 p-2"
+                    style="background-color:rgb(175, 41, 41); color:white; font-size: 1em; border-radius: 1em">Para
+                    dar puntaje a empresas debes iniciar sesión. Sólo los usuarios persona pueden dar puntaje.</p>
+                {% endif %}
+                <!--AQUI INICIA CODIGO DE DAMIAN-->
+                <form action="/comment" method="post">
+                    <input type="hidden" name="user_id" value="{{session['user_id']}}">
+                    <input type="hidden" name="company_id" value="{{company.id}}">
+                    <label for="text" style="color: white; margin: 10px 0px 10px 0px;">Ingresa tu comentario de la
+                        empresa:</label><br>
+                    <textarea name="text" id="" cols="60" rows="10"
+                        style="border-radius: 5px; resize: none; margin-bottom: 20px; padding: 10px;"
+                        placeholder="Dejá tu comentario aca..."></textarea><br>
+                    <button type="submit" class="btn btn-success">Enviar comentario</button>
+                </form>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="container">
+                <h4 style="color:#ffde59">COMENTARIOS DE LA EMPRESA:</h4>
+                <hr style="color:#ffde59">
+                <!-- <table style="border-radius: 1em;">
+                    <thead>
+                        <tr style="background-color: #ffde59; color:#343333">
+                            <th>Comentario</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead> -->
+                    {% for comment in comments %}
+                        <p class="fst-italic" style="color: white; font-size: 1.3em">{{comment.text}}</p>
+                        <p style="color: white">{{comment.created_at}}</p>
+                        <hr style="color:#ffde59">
+                    {% endfor %}
+
+            </div>
+            <!--AQUI TERMINA CODIGO DE DAMIAN-->
+
+            <div class="container">
+                <h4 style="color:#ffde59">PRODUCTOS O SERVICIOS:</h4>
+                <div class="row w-100 justify-content-start">
+                    {% for product in products %}
+                        <div class="col-2 mt-3 justify-content-center" style="height: 16em; width: 20%">
+                            <div class="card rounded-3 overflow-y-auto" style="height: 16em;">
+                                <img src="{{url_for('static', filename='img/'+product.image)}}" class="card-img-top" alt="{{product.name}}" >
+                                <div class="card-body d-block justify-content-center">
+                                    <p class="card-title" style="font-size:1.2em; font-weight:bold">{{product.name}}</p>
+                                    <div class="d-inline-flex ">
+                                        <p style="font-size: 1em;">{{product.description}}</p>
+                                    </div>
+                                    <div>
+                                        <a href="/product/{{product.id}}" class="btn" style="background-color: #ffde59; color:#343333">Ver</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+    <!--Ariel Avila - 29-04-2024 MB01: Se añade el script de js para el despliegue del mapa -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

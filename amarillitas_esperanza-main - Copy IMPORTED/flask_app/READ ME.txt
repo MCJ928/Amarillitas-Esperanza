@@ -1,0 +1,13 @@
+﻿ AMARILLITAS ESPERANZA
+
+Este proyecto tiene como finalidad constituirse en un sitio web con un directorio de diferentes empresas y comercios de la ciudad de Esperanza, Santa Fe, Argentina. Dando un poco más de contexto, hace muchos años en el territorio argentino, la empresa de telefonía Telecom, antes Telefónica entregaba en el domicilio de las personas afiliadas a sus servicios, un libro con muchas páginas en donde se podían ver las listas de los datos de los afiliados, tales como nombre completo, dirección y número de teléfono del hogar (telefonía fija), pertenecientes a toda la provincia. En este libro se encontraba una sección llamada “páginas amarillas” donde la lista estaba dirigida a números telefónicos de empresas, comercios, y profesionales, con apartados para publicidad y divididas según localidad donde se encontraban, así como también según el rubro, servicio brindado o profesión.
+	Este libro, con la llegada de los teléfonos celulares y la globalización de la conexión a internet fue decayendo en su uso hasta desaparecer. En la ciudad de Esperanza eso hizo que la búsqueda de profesionales o empresas sea aún más difícil ya que no todos los comercios tienen locales comerciales ni sitios web donde estén publicados sus datos. Así la información transmitida “de boca en boca” se hizo vital.
+
+Este es un intento de conglomerar la información para que pueda estar al alcance de todos, en todo momento y lugar. Las personas podrán obtener información como dirección, teléfonos y correos de contacto, redes sociales, fotos de los productos o servicios (así como descripciones y precios si son productos tangibles) e incluso la puntuación de la calidad de cada empresa (cada usuario podrá puntuar a la empresa de 1 a 5 estrellas).
+
+Tendrá dos dashboard según el perfil de quien inicie (si es persona física o si es empresa). En el caso de las personas físicas será para actualizar su perfil. En el caso de las empresas su dashboard será para poder actualizar su perfil, e incluir productos o servicios.
+En el home los usuarios podrán buscar en una navbar según palabras claves, ver en el inicio las empresas destacadas (con 4 estrellas o más), ver novedades, publicidad, etc.
+
+
+
+

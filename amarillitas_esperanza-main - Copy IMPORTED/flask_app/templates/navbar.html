@@ -1,0 +1,62 @@
+<!-- BANNER -->
+<header class="container-fluid">
+    <img src="/static/img/banner.jpg" class="img-fluid mt-2 w-100" alt="Banner" >
+    <div class="navbar mt-2 rounded-4" style="background-color: #ffde59;">
+        <div class="container-fluid justify-content-evenly p-0">
+            <a class="navbar-brand justify-content-center col-1" href="/">
+                <img src="/static/img/nav.png" alt="NavImg" class="content-fit-cover ms-2" style="width: 7em">
+            </a>
+                    
+            <!-- SEARCH -->
+            <form action="/search" class="container-fluid" method="post" style="width: 20%">
+                <div class="input-group ">
+                    <input type="text" class="form-control" name="search" >
+                    <button class="btn btn-light" type="submit">Buscar</button>
+                </div>
+            </form>
+
+            <form action="/select/neighborhood" class="me-2" method="post">
+                <div  style="background-color: white; border-radius: 0.4em;">
+                    <label class="m-2" style="border-radius: 15%;">Barrios</label>
+                    <select name="neighborhood" style="border: none;"> 
+                            <option value="Centro">Centro</option>
+                            <option value="Este">Este</option>
+                            <option value="Norte">Norte</option>
+                            <option value="Oeste">Oeste</option>
+                            <option value="Sur">Sur</option>
+                    </select>
+                    <input type="submit" value="Buscar" class="btn btn-light">
+                </div>
+            </form>
+                    
+            <form action="/select/category", method="post">
+                <div  style="background-color: white; border-radius: 0.4em;">
+                    <label class="m-2" style="border-radius: 15%;">Categorías</label>
+                    <select name="category_id" style="border: none;"> 
+                        {% for category in categories %}
+                            <option value="{{category.id}}">{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Buscar" class="btn btn-light">
+                </div>
+            </form>
+
+
+
+                    
+            <div class="w-25 container-fluid">
+                {% if session['company_id'] %}
+                <a href="/dashboard/company" class="btn btn-light">Perfil</a>
+                <a href="/logout/company" class="btn btn-light">Cerrar sesión</a>
+                {% elif session['user_id'] %}
+                <a href="/dashboard/user" class="btn btn-light">Perfil</a>
+                <a href="/logout/user" class="btn btn-light">Cerrar sesión</a>
+                {% else %}
+                    <a href="/login" class="btn btn-light">Iniciar Sesión</a>
+                    <a href="/register" class="btn btn-light">Registrarse</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
+<br class="hidden">

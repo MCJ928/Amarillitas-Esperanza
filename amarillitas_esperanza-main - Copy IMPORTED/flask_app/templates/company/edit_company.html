@@ -1,0 +1,76 @@
+{% extends "base_company.html" %}
+{% block content %}
+
+        <main>
+            <div class="col-5" style="background-color: white; padding: 1em; border-radius: 1.2em">
+                <h2>Datos de empresa:</h2>
+                <form action="/update/company" method="POST" enctype="multipart/form-data">
+                    <div>
+                        <label>Nombre:</label>
+                        <input type="text" name="name" class="form-control" value="{{company.name}}">
+                    </div>
+                    <div>
+                        <label>Descripción:</label>
+                        <textarea name="description" class="form-control">{{company.description}}</textarea>
+                    </div>
+                    <div>
+                        <label>Cuit/Matrícula:</label>
+                        <input type="text" name="cuit" class="form-control" value="{{company.cuit}}">
+                    </div>
+                    <div>
+                        <label>Email:</label>
+                        <input type="email" name="email" class="form-control" value="{{company.email}}">
+                    </div>
+                    <div>
+                        <label>Teléfono:</label>
+                        <input type="text" name="phone" class="form-control" value="{{company.phone}}">
+                    </div>
+                    <div>
+                        <label>Dirección actual:</label>
+                        <input type="text" name="adress_input" class="form-control" value="{{company.adress}}" disabled>
+                    </div>
+                    <!--Ariel Avila - 29-04-2024 MB01: Se añade el mapa para actualizar -->
+                    <div>
+                        <label>Actualiza tu direccion:</label>
+                        <div id="map" style="height: 400px; width: 100%;"></div>
+                    </div>
+                    <div>
+                        <label>Categoría:</label>
+                        <select name="category_id" class="form-select">
+                            <option {% if company.category_id == 1 %} selected {% endif %} value= 1 >Fereterías</option>
+                            <option {% if company.category_id == 2 %} selected {% endif %} value= 2 >Heladerías</option>
+                            <option {% if company.category_id == 3 %} selected {% endif %} value= 3 >Indumentaria</option>
+                            <option {% if company.category_id == 4 %} selected {% endif %} value= 4 >Minimercados</option>
+                            <option {% if company.category_id == 5 %} selected {% endif %} value= 5 >Zapaterías</option>
+                            <option {% if company.category_id == 6 %} selected {% endif %} value= 6 >Abogados</option>
+                            <option {% if company.category_id == 7 %} selected {% endif %} value= 7 >Gasistas</option>
+                            <option {% if company.category_id == 8 %} selected {% endif %} value= 8 >Mecánicos</option>
+                            <option {% if company.category_id == 9 %} selected {% endif %} value= 9 >Médicos</option>
+                            <option {% if company.category_id == 10 %} selected {% endif %} value= 10 >Psicólogos</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Barrio:</label>
+                        <select name="neighborhood" class="form-select">
+                            <option value="Centro">Centro</option>
+                            <option value="Este">Este</option>
+                            <option value="Norte">Norte</option>
+                            <option value="Oeste">Oeste</option>
+                            <option value="Sur">Sur</option>
+                        </select>
+                    </div>
+                    <!--Ariel Avila - 29-04-2024 MB01: Se añaden los input para la direccion -->
+                    <input type="hidden" name="adress" id="adress" value="">
+                    <input type="hidden" name="adress_lat" id="longitud" value="{{company.adress_long}}">
+                    <input type="hidden" name="adress_long" id="latitud" value="{{company.adress_lat}}">
+                    <input type="hidden" name="adress_old" class="form-control" value="{{company.adress}}">
+
+                    <input type="hidden" name="id" value="{{session['company_id']}}">
+                    <input type="submit" value="Actualizar" class="btn mt-2" style="background-color: #ffde59;">
+                </form>
+            </div>
+        </main>
+
+    <!--Ariel Avila - 29-04-2024 MB01: Se añade el script de js para el despliegue del mapa -->
+        <script src="{{ url_for('static', filename='js/script-editProfile.js') }}"></script>
+{% endblock %} 

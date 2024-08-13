@@ -1,0 +1,52 @@
+{% extends "base_script_4.html" %}
+{% block content %}
+        <main>
+            <div class="container">
+                <div class="profile">
+                    <div class="">
+                        {% if company.image is not none %}
+                            <img src="{{url_for('static', filename='img/'+company.image)}}" alt="Imagen de perfil" class="object-fit-cover" style="width: 13em; height: 13em; border-radius: 50%;">
+                        {% else %}
+                            <img src="/static/img/profile.jpg" style="width: 13em; height: 13em; border-radius: 50%;">
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h4 class="mt-2" style="color: white;">{{company.name}}</h4>
+                        <h5 class="mt-2" style="color: white;">{{category.name}}</h5>
+                    <a href="/edit/company/{{company.id}}" class="btn mt-2" style="background-color: #ffde59;">Editar perfil</a>
+                </div>
+                <br class="hidden">
+                <div class="col-5 p-3 justify-items-center" style="background-color: white; color:#343333; border-radius: 1em">
+                    <h2>Nuevo producto:</h2>
+                    <form action="/new_product" method="POST" enctype="multipart/form-data">
+                        {% with messages = get_flashed_messages(category_filter=['product']) %}
+                            {% if messages %}
+                                <div class="alert alert-danger">
+                                    {% for message in messages %}
+                                        <p>{{message}}</p>
+                                    {% endfor %}
+                                    </div>
+                            {% endif %}
+                        {% endwith %}
+                        <div>
+                            <label>Imagen:</label>
+                            <input type="file" name="image" class="form-control" accept="image/*">
+                        </div>
+                        <div>
+                            <label>Nombre:</label>
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                        <div>
+                            <label>Descripción:</label>
+                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                        <div>
+                            <input type="hidden" name="company_id" value="{{session['company_id']}}">
+                            <input type="submit" value="Agregar" class="btn mt-2" style="background-color: #ffde59;">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %} 
